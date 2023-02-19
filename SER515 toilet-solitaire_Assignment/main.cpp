@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
 #include <algorithm>
+#include<cstdlib>
 using namespace std;
 
 enum Suit {
@@ -56,6 +58,7 @@ class Deck
 {
    public:
     vector<Card> cards;
+    vector<Card> hand;
 
     Deck() { fillDeck(); }
 
@@ -81,6 +84,45 @@ class Deck
         srand(time(NULL));
         random_shuffle(cards.begin(), cards.end());
     }
+
+    void deal_card()
+    {
+        for (int i = 52; i > 0; i = i)
+        {
+            int hand_size = hand.size();
+            if (hand_size < 4)
+            {
+                for (int j = hand_size; j <= 4; j++)
+                {
+                    hand.push_back(cards[i]);
+                    cards.pop_back();
+                    i--;
+                }
+            }
+            else
+            {
+                hand.push_back(cards[i]);
+                cards.pop_back();
+                i--;
+            }
+        }
+    }
+
+    void print_hand()
+    {
+        for (const auto& card : hand)
+        {
+            cout << card.fullname << endl;
+        }
+    }
+
+    void Basic_rule()
+    {
+        int hand_sizeB = hand.size();
+        int last_element = hand_sizeB - 1;
+        int last_4thElement = hand_sizeB - 4;
+        //if(Card Suit [last_element])
+    }
 };
 
 int main()
@@ -95,6 +137,53 @@ int main()
     cout << "b. play " << endl;
     cout << "q. quit." << endl;
     cout << endl;
+
+    do {
+        cout << "please enter your choice" << endl;
+        cin >> choice;
+        switch (choice)
+        {
+        case 'a':
+            deck.shuffle();
+            cout << "cards shuffled" << endl;
+            cout << endl;
+            break;
+
+        case 'b':
+            cout << "please select rule to play:" << endl;
+            cout << "1. Basic (1st & 4th same Suit --> remove middle two, 1st & 4th same rank --> remove all 4)" << endl;
+            cout << "2. Intermediate --> neighbors are same rank --> remove pair!" << endl;
+            cout << "3. House Rules --> (1st & 4th same Suit AND 3rd & 4th same rank --> remove last 3) " << endl;
+            cout << "Please enter a number for slecting rules" << endl;
+            cin >> rule_choice;
+
+            if (rule_choice == 1)
+            {
+                deck.deal_card();
+                deck.print_hand();
+            }
+            else if (rule_choice == 2)
+            {
+
+            }
+            else if (rule_choice == 3)
+            {
+
+            }
+            break;
+
+        case 'q':
+            cout << "exit" << endl;
+            cout << endl;
+            return 0;
+            break;
+        default:
+            cout << "please enter a valid option" << endl;
+            cout << endl;
+            break;
+
+        }
+    } while (choice == 'a' || choice == 'b' || choice == 'q' || choice != true);
 
     system("pause");
 }
