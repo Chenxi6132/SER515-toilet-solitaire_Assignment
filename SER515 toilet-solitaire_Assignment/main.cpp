@@ -98,14 +98,25 @@ class Deck
                     cards.pop_back();
                     i--;
                 }
+                cout << "after draw " << 4 - hand_size << "cards, the cards on your hand is " << endl;
+                print_hand();
+                cout << endl;
+                Basic_rule(hand_size);
             }
             else
             {
                 hand.push_back(cards[i]);
                 cards.pop_back();
                 i--;
+                cout << "after draw one card, the cards on your hand is " << endl;
+                print_hand();
+                cout << endl;
+
+                Basic_rule(hand_size); 
             }
         }
+
+
     }
 
     void print_hand()
@@ -116,13 +127,37 @@ class Deck
         }
     }
 
-    void Basic_rule()
+    void Basic_rule(int hand_sizeB)
     {
-        int hand_sizeB = hand.size();
+        
+        hand_sizeB = hand.size();
         int last_element = hand_sizeB - 1;
         int last_4thElement = hand_sizeB - 4;
-        //if(Card Suit [last_element])
+        if (hand.at(last_element).value == hand.at(last_4thElement).value)
+        {
+            hand.erase(hand.end()-4, hand.end());
+            cout << "remove last four cards" << endl;
+            cout << "After reomove 4 cards, The left hand in your hand is "<<endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).suit == hand.at(last_4thElement).suit)
+        {
+            hand.erase(hand.end() - 4);
+            hand.pop_back();
+            cout << "remove 1th and 4th card" << endl;
+            cout << "After reomove 2 cards, The left hand in your hand is "<<endl;
+            print_hand();
+            cout << endl;
+        }
+        else
+        {
+            cout << "no cards need to remove" << endl;
+            cout << endl;
+        }
     }
+
+
 };
 
 int main()
@@ -160,7 +195,7 @@ int main()
             if (rule_choice == 1)
             {
                 deck.deal_card();
-                deck.print_hand();
+                //deck.print_hand();
             }
             else if (rule_choice == 2)
             {
