@@ -97,5 +97,51 @@ int main()
     cout << "q. quit." << endl;
     cout << endl;
 
+    do {
+        cout << "please enter your choice" << endl;
+        cin >> choice;
+        switch (choice)
+        {
+        case 'a':
+            deck.shuffle();
+            deck.printDeck();
+            cout << "cards shuffled" << endl;
+            cout << endl;
+            break;
+
+        case 'b':
+            cout << "please select rule to play:" << endl;
+            cout << "1. Basic (1st & 4th same Suit --> remove middle two, 1st & 4th same rank --> remove all 4)" << endl;
+            cout << "2. Intermediate --> neighbors are same rank --> remove pair!" << endl;
+            cout << "3. House Rules --> (1st & 4th same Suit AND 3rd & 4th same rank --> remove last 3) " << endl;
+            cout << "Please enter a number for slecting rules" << endl;
+            cin >> rule_choice;
+
+            if (rule_choice == 1)
+            {
+                
+            }
+            else if (rule_choice == 2)
+            {
+
+            }
+            else if (rule_choice == 3)
+            {
+
+            }
+            break;
+
+        case 'q':
+            cout << "exit" << endl;
+            cout << endl;
+            return 0;
+            break;
+        default:
+            cout << "please enter a valid option" << endl;
+            cout << endl;
+            break;
+
+        }
+    } while (choice == 'a' || choice == 'b' || choice == 'q' || choice != true);
     system("pause");
 }
