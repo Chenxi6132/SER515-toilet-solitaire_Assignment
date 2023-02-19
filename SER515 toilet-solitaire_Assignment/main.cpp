@@ -75,16 +75,21 @@ class Deck
             cout << card.fullname << endl;
         }
     }
+
+    void shuffle()
+    {
+        srand(time(NULL));
+        random_shuffle(cards.begin(), cards.end());
+    }
 };
 
 int main()
 {
     Deck deck;
     deck.fillDeck();
+    deck.shuffle();
+    deck.printDeck();
 
-
-    char choice;
-    int rule_choice;
     cout << "a. shuffle" << endl;
     cout << "b. play " << endl;
     cout << "q. quit." << endl;
