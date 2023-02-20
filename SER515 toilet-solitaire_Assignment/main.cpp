@@ -59,6 +59,7 @@ class Deck
    public:
        vector<Card> cards;
        vector<Card> hand;
+       vector<Card> target;
 
     Deck() { fillDeck(); }
 
@@ -99,7 +100,7 @@ class Deck
         basic_rule(hand_size);
         hand_size = hand.size();
 
-        for (int i = 47; i > 0; i = i)
+        for (int i = 47; i > -1; i = i)
         {
             
             if (hand_size < 4)
@@ -127,6 +128,8 @@ class Deck
                 basic_rule(hand_size); 
             }
         }
+
+        
         
     }
 
@@ -144,7 +147,7 @@ class Deck
        Intermediate_rule(hand_size);
        hand_size = hand.size();
 
-        for (int i = 47; i >0; i = i)
+        for (int i = 47; i >-1; i = i)
         {
             
             if (hand_size < 4)
@@ -188,7 +191,7 @@ class Deck
        House_rule(hand_size);
        hand_size = hand.size();
 
-       for (int i = 47; i > 0; i = i)
+       for (int i = 47; i > -1; i = i)
        {
            if (hand_size < 4)
            {
@@ -391,8 +394,103 @@ class Deck
         }
     }
 
-    void Result()
+    void Result(int sizeofhand)
     {
+        if (sizeofhand == 0)
+        {
+            cout << "Super Win" << endl;
+        }
+        else if (sizeofhand <= 4)
+        {
+            cout << "You win" << endl;
+        }
+        else
+        {
+            cout << "You loose, game over !!!" << endl;
+            //cout << "please enter i for initilize" << endl;
+            cout << "Please enter 'q' for quit" << endl;
+        }
+    }
+
+    void last_Step_basic()
+    {
+        
+        int sizeofHand = hand.size();
+        int count = 2;
+        for (int i = 0; i < sizeofHand; i++)
+        {
+            hand.push_back(hand.front());
+            hand.erase(hand.begin());
+            int countCards_O = hand.size();
+            basic_rule(countCards_O);
+            int CountCards_N = hand.size();
+            if (countCards_O != CountCards_N)
+            {
+                i = 0;
+                sizeofHand = hand.size();
+            }
+            
+        }
+
+        cout << "No more steps can move." << endl;
+        int result = hand.size();
+
+        Result(result);
+        
+        
+    }
+
+    void last_Step_Intermediate()
+    {
+
+        int sizeofHand = hand.size();
+        int count = 2;
+        for (int i = 0; i < sizeofHand; i++)
+        {
+            hand.push_back(hand.front());
+            hand.erase(hand.begin());
+            int countCards_O = hand.size();
+            Intermediate_rule(countCards_O);
+            int CountCards_N = hand.size();
+            if (countCards_O != CountCards_N)
+            {
+                i = 0;
+                sizeofHand = hand.size();
+            }
+
+        }
+
+        cout << "No more steps can move." << endl;
+        int result = hand.size();
+
+        Result(result);
+    }
+
+    void last_Step_House_Rule()
+    {
+
+        int sizeofHand = hand.size();
+        int count = 2;
+        for (int i = 0; i < sizeofHand; i++)
+        {
+            hand.push_back(hand.front());
+            hand.erase(hand.begin());
+            int countCards_O = hand.size();
+            House_rule(countCards_O);
+            int CountCards_N = hand.size();
+            if (countCards_O != CountCards_N)
+            {
+                i = 0;
+                sizeofHand = hand.size();
+            }
+
+        }
+
+        cout << "No more steps can move." << endl;
+        int result = hand.size();
+
+        Result(result);
+
 
     }
 };
@@ -418,8 +516,15 @@ int main()
         cin >> choice;
         switch (choice)
         {
+        //case 'i':
+        //    deck.printDeck();
+        //    cout << "card initialized" << endl;
+        //    cout << endl;
+        //    cout << endl;
+
         case 'a':
             deck.shuffle();
+            //deck.printDeck();
             cout << "cards shuffled" << endl;
             cout << endl;
             break;
@@ -435,15 +540,19 @@ int main()
             if (rule_choice == 1)
             {
                 deck.deal_card_basic();
+                deck.last_Step_basic();
+                
                 
             }
             else if (rule_choice == 2)
             {
                 deck.deal_card_Intermediate();
+                deck.last_Step_Intermediate();
             }
             else if (rule_choice == 3)
             {
                 deck.deal_card_House_Rule();
+                deck.last_Step_House_Rule();
             }
             break;
 
@@ -452,6 +561,7 @@ int main()
             cout << endl;
             return 0;
             break;
+
         default:
             cout << "please enter a valid option" << endl;
             cout << endl;
