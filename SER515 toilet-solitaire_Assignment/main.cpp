@@ -57,8 +57,8 @@ public:
 class Deck
 {
    public:
-    vector<Card> cards;
-    vector<Card> hand;
+       vector<Card> cards;
+       vector<Card> hand;
 
     Deck() { fillDeck(); }
 
@@ -85,11 +85,23 @@ class Deck
         random_shuffle(cards.begin(), cards.end());
     }
 
-    void deal_card()
+    void deal_card_basic()
     {
-        for (int i = 52; i > 0; i = i)
+        int hand_size = hand.size();
+        cout << "draw 4 cards first" << endl;
+        for (int x = 0; x < 4; x++)
         {
-            int hand_size = hand.size();
+            hand.push_back(cards[x]);
+            cards.pop_back();
+        }
+        print_hand();
+        cout << endl;
+        basic_rule(hand_size);
+        hand_size = hand.size();
+
+        for (int i = 47; i > 0; i = i)
+        {
+            
             if (hand_size < 4)
             {
                 for (int j = hand_size; j <= 4; j++)
@@ -101,7 +113,7 @@ class Deck
                 cout << "after draw " << 4 - hand_size << "cards, the cards on your hand is " << endl;
                 print_hand();
                 cout << endl;
-                Basic_rule(hand_size);
+                basic_rule(hand_size);
             }
             else
             {
@@ -112,12 +124,98 @@ class Deck
                 print_hand();
                 cout << endl;
 
-                Basic_rule(hand_size); 
+                basic_rule(hand_size); 
             }
         }
-
-
+        
     }
+
+   void deal_card_Intermediate()
+    {
+       int hand_size = hand.size();
+       cout << "draw 4 cards first" << endl;
+       for (int x = 0; x < 4; x++)
+       {
+           hand.push_back(cards[x]);
+           cards.pop_back();
+       }
+       print_hand();
+       cout << endl;
+       Intermediate_rule(hand_size);
+       hand_size = hand.size();
+
+        for (int i = 47; i >0; i = i)
+        {
+            
+            if (hand_size < 4)
+            {
+                for (int j = hand_size; j <= 4; j++)
+                {
+                    hand.push_back(cards[i]);
+                    cards.pop_back();
+                    i--;
+                }
+                cout << "after draw " << 4 - hand_size << "cards, the cards on your hand is " << endl;
+                print_hand();
+                cout << endl;
+                Intermediate_rule(hand_size);
+            }
+            else
+            {
+                hand.push_back(cards[i]);
+                cards.pop_back();
+                i--;
+                cout << "after draw one card, the cards on your hand is " << endl;
+                print_hand();
+                cout << endl;
+
+                Intermediate_rule(hand_size);
+            }
+        }
+    }
+
+   void deal_card_House_Rule()
+   {
+       int hand_size = hand.size();
+       cout << "draw 4 cards first" << endl;
+       for (int x = 0; x < 4; x++)
+       {
+           hand.push_back(cards[x]);
+           cards.pop_back();
+       }
+       print_hand();
+       cout << endl;
+       House_rule(hand_size);
+       hand_size = hand.size();
+
+       for (int i = 47; i > 0; i = i)
+       {
+           if (hand_size < 4)
+           {
+               for (int j = hand_size; j <= 4; j++)
+               {
+                   hand.push_back(cards[i]);
+                   cards.pop_back();
+                   i--;
+               }
+               cout << "after draw " << 4 - hand_size << "cards, the cards on your hand is " << endl;
+               print_hand();
+               cout << endl;
+               House_rule(hand_size);
+           }
+           else
+           {
+               hand.push_back(cards[i]);
+               cards.pop_back();
+               i--;
+               cout << "after draw one card, the cards on your hand is " << endl;
+               print_hand();
+               cout << endl;
+
+               House_rule(hand_size);
+           }
+       }
+   }
 
     void print_hand()
     {
@@ -127,26 +225,83 @@ class Deck
         }
     }
 
-    void Basic_rule(int hand_sizeB)
+    void basic_rule(int hand_sizeb)
     {
         
-        hand_sizeB = hand.size();
-        int last_element = hand_sizeB - 1;
-        int last_4thElement = hand_sizeB - 4;
-        if (hand.at(last_element).value == hand.at(last_4thElement).value)
+        hand_sizeb = hand.size();
+        int last_element = hand_sizeb - 1;
+        int last_4thelement = hand_sizeb - 4;
+        if (hand.at(last_element).value == hand.at(last_4thelement).value)
         {
             hand.erase(hand.end()-4, hand.end());
             cout << "remove last four cards" << endl;
-            cout << "After reomove 4 cards, The left hand in your hand is "<<endl;
+            cout << "after reomove 4 cards, the left hand in your hand is "<<endl;
             print_hand();
             cout << endl;
         }
-        else if (hand.at(last_element).suit == hand.at(last_4thElement).suit)
+        else if (hand.at(last_element).suit == hand.at(last_4thelement).suit)
         {
             hand.erase(hand.end() - 4);
             hand.pop_back();
             cout << "remove 1th and 4th card" << endl;
-            cout << "After reomove 2 cards, The left hand in your hand is "<<endl;
+            cout << "after reomove 2 cards, the left hand in your hand is "<<endl;
+            print_hand();
+            cout << endl;
+        }
+        else
+        {
+            cout << "no cards need to remove" << endl;
+            cout << endl;
+        }
+
+        
+    }
+
+    void Intermediate_rule(int hand_sizeI)
+    {
+        hand_sizeI = hand.size();
+        int last_element = hand_sizeI - 1;
+        int last_2thelement = hand_sizeI - 2;
+        int last_3thelement = hand_sizeI - 3;
+        int last_4thelement = hand_sizeI - 4;
+        if (hand.at(last_element).value == hand.at(last_2thelement).value)
+        {
+            hand.erase(hand.end() - 2, hand.end());
+            cout << "remove last 2 cards" << endl;
+            cout << "after reomove 2 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_2thelement).value == hand.at(last_3thelement).value)
+        {
+            hand.erase(hand.end() - 3, hand.end() - 1);
+            cout << "remove last 2th and last 3th cards" << endl;
+            cout << "after reomove last 2th and last 3th cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_3thelement).value == hand.at(last_4thelement).value)
+        {
+            hand.erase(hand.end() - 4, hand.end() - 2);
+            cout << "remove last fourth and last third cards" << endl;
+            cout << "after reomove last fourth and last third cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).value == hand.at(last_4thelement).value)
+        {
+            hand.erase(hand.end() - 4, hand.end());
+            cout << "remove last four cards" << endl;
+            cout << "after reomove 4 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).suit == hand.at(last_4thelement).suit)
+        {
+            hand.erase(hand.end() - 4);
+            hand.pop_back();
+            cout << "remove 1th and 4th card" << endl;
+            cout << "after reomove 2 cards, the left hand in your hand is " << endl;
             print_hand();
             cout << endl;
         }
@@ -157,13 +312,98 @@ class Deck
         }
     }
 
+    void House_rule(int hand_sizeR)
+    {
+        hand_sizeR = hand.size();
+        int last_element = hand_sizeR - 1;
+        int last_2thelement = hand_sizeR - 2;
+        int last_3thelement = hand_sizeR - 3;
+        int last_4thelement = hand_sizeR - 4;
+        if (hand.at(last_element).suit == hand.at(last_4thelement).suit && hand.at(last_element).value == hand.at(last_2thelement).value)
+        {
+            hand.erase(hand.end() - 3, hand.end());
+            cout << "remove last 3 cards" << endl;
+            cout << "after reomove 3 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).suit == hand.at(last_4thelement).suit && hand.at(last_2thelement).value == hand.at(last_3thelement).value)
+        {
+            hand.erase(hand.end() - 3, hand.end());
+            cout << "remove last 3 cards" << endl;
+            cout << "after reomove 3 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).suit == hand.at(last_4thelement).suit && hand.at(last_3thelement).value == hand.at(last_4thelement).value)
+        {
+            hand.erase(hand.end() - 4, hand.end() - 1);
+            cout << "remove first 3 cards" << endl;
+            cout << "after reomove 3 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).value == hand.at(last_2thelement).value)
+        {
+            hand.erase(hand.end() - 2, hand.end());
+            cout << "remove last 2 cards" << endl;
+            cout << "after reomove 2 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_2thelement).value == hand.at(last_3thelement).value)
+        {
+            hand.erase(hand.end() - 3, hand.end() - 1);
+            cout << "remove last 2th and last 3th cards" << endl;
+            cout << "after reomove last 2th and last 3th cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_3thelement).value == hand.at(last_4thelement).value)
+        {
+            hand.erase(hand.end() - 4, hand.end() - 2);
+            cout << "remove last fourth and last third cards" << endl;
+            cout << "after reomove last fourth and last third cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).value == hand.at(last_4thelement).value)
+        {
+            hand.erase(hand.end() - 4, hand.end());
+            cout << "remove last four cards" << endl;
+            cout << "after reomove 4 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else if (hand.at(last_element).suit == hand.at(last_4thelement).suit)
+        {
+            hand.erase(hand.end() - 4);
+            hand.pop_back();
+            cout << "remove 1th and 4th card" << endl;
+            cout << "after reomove 2 cards, the left hand in your hand is " << endl;
+            print_hand();
+            cout << endl;
+        }
+        else
+        {
+            cout << "no cards need to remove" << endl;
+            cout << endl;
+        }
+    }
 
+    void Result()
+    {
+
+    }
 };
 
 int main()
 {
     Deck deck;
-    deck.fillDeck();
+    deck.printDeck();
+    cout << "card initialized" << endl;
+    cout << endl;
+    cout << endl;
 
 
     char choice;
@@ -194,16 +434,16 @@ int main()
 
             if (rule_choice == 1)
             {
-                deck.deal_card();
-                //deck.print_hand();
+                deck.deal_card_basic();
+                
             }
             else if (rule_choice == 2)
             {
-
+                deck.deal_card_Intermediate();
             }
             else if (rule_choice == 3)
             {
-
+                deck.deal_card_House_Rule();
             }
             break;
 
