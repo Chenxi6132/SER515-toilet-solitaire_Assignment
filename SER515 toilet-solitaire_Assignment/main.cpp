@@ -21,7 +21,7 @@ public:
     string fullname;
 
     Card(Suit suit, int value)
-        : suit(suit), value(value), valueOfName(valueToString(value)), fullname(valueOfName + " of " + suitToString(suit)) {}
+        : suit(suit), value(value), valueOfName(valueToString(value)), fullname(valueOfName + " " + suitToString(suit)) {}
 
     string suitToString(Suit suit) {
         switch (suit) {
@@ -407,7 +407,6 @@ class Deck
         else
         {
             cout << "You loose, game over !!!" << endl;
-            //cout << "please enter i for initilize" << endl;
             cout << "Please enter 'q' for quit" << endl;
         }
     }
@@ -516,15 +515,8 @@ int main()
         cin >> choice;
         switch (choice)
         {
-        //case 'i':
-        //    deck.printDeck();
-        //    cout << "card initialized" << endl;
-        //    cout << endl;
-        //    cout << endl;
-
         case 'a':
             deck.shuffle();
-            //deck.printDeck();
             cout << "cards shuffled" << endl;
             cout << endl;
             break;
@@ -540,9 +532,7 @@ int main()
             if (rule_choice == 1)
             {
                 deck.deal_card_basic();
-                deck.last_Step_basic();
-                
-                
+                deck.last_Step_basic();   
             }
             else if (rule_choice == 2)
             {
