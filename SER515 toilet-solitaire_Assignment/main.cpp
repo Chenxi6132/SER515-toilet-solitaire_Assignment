@@ -1,3 +1,7 @@
+//https://tree.taiga.io/project/chenxi6132-ser515-one-hand-solitaire/backlog
+//Chenxi(Erika) Xu 
+//student ID: 1225409523
+
 #include <iostream>
 #include <string>
 #include <vector>
